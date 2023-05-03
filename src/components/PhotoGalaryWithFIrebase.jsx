@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { CardList } from './CardList';
 import { Navbar } from './Navbar';
 import UploadForm from './UploadForm';
@@ -16,6 +16,8 @@ export const PhotoGalaryWithFirebase = () => {
   const [photos, setPhotos] = useState(data);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [input, setInput] = useState({ title: null, file: null, path: null });
+  const [numberOfImages, setNumberOfImages] = useState(0);
+
   const handleOnChange = (e) => {
     setInput(e.target.value);
     if (e.target.name === 'file') {
@@ -28,10 +30,15 @@ export const PhotoGalaryWithFirebase = () => {
       setInput({ ...input, title: e.target.value });
     }
   };
+
   const handleOnSubmit = (e) => {
     e.preventDefault();
     setPhotos([input.path, ...photos]);
   };
+
+  useEffect(() => {
+    setNumberOfImages(photos.length);
+  }, [photos]);
 
   return (
     <>
@@ -52,6 +59,10 @@ export const PhotoGalaryWithFirebase = () => {
           />
         )}
         <h1>Photo Gallery</h1>
+        <p>
+          You have {numberOfImages} image{numberOfImages === 1 ? '' : 's'} in
+          your gallery
+        </p>
         <CardList photos={photos} />
       </div>
     </>

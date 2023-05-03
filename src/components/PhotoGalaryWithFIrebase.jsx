@@ -1,19 +1,34 @@
-import { Card } from './Card';
+import { useState } from 'react';
+import { CardList } from './CardList';
 import { Navbar } from './Navbar';
+import UploadForm from './UploadForm';
+
+const data = [
+  'https://picsum.photos/id/1001/200/200',
+  'https://picsum.photos/id/1002/200/200',
+  'https://picsum.photos/id/1003/200/200',
+  'https://picsum.photos/id/1004/200/200',
+  'https://picsum.photos/id/1005/200/200',
+  'https://picsum.photos/id/1006/200/200',
+];
 
 export const PhotoGalaryWithFirebase = () => {
+  const [photos, setPhotos] = useState(data);
+  const [isCollapsed, setIsCollapsed] = useState(false);
+
   return (
     <>
       <Navbar />
       <div className='container text-center mt-5'>
-        <h1>Gallery</h1>
-        <div className='row'>
-          {Array.apply(null, { length: 9 }).map(() => (
-            <div className='col mb-5'>
-              <Card />
-            </div>
-          ))}
-        </div>
+        <button
+          className='btn btn-success'
+          onClick={() => setIsCollapsed((prevState) => !prevState)}
+        >
+          {isCollapsed ? 'Maybe Later' : 'Add New Photo'}
+        </button>
+        {isCollapsed && <UploadForm />}
+        <h1>Photo Gallery</h1>
+        <CardList photos={photos} />
       </div>
     </>
   );

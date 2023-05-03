@@ -15,18 +15,33 @@ const data = [
 export const PhotoGalaryWithFirebase = () => {
   const [photos, setPhotos] = useState(data);
   const [isCollapsed, setIsCollapsed] = useState(false);
+  const [input, setInput] = useState();
+  const handleOnChange = (e) => {
+    setInput(e.target.value);
+  };
+  const handleOnSubmit = (e) => {
+    e.preventDefault();
+    setPhotos([input, ...photos]);
+  };
 
   return (
     <>
       <Navbar />
       <div className='container text-center mt-5'>
         <button
-          className='btn btn-success'
+          className='btn btn-success float-end'
           onClick={() => setIsCollapsed((prevState) => !prevState)}
         >
           {isCollapsed ? 'Maybe Later' : 'Add New Photo'}
         </button>
-        {isCollapsed && <UploadForm />}
+        <div className='clearfix mb-4'></div>
+        {isCollapsed && (
+          <UploadForm
+            isVisible={isCollapsed}
+            onChange={handleOnChange}
+            onSubmit={handleOnSubmit}
+          />
+        )}
         <h1>Photo Gallery</h1>
         <CardList photos={photos} />
       </div>

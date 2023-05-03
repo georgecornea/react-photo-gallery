@@ -15,13 +15,22 @@ const data = [
 export const PhotoGalaryWithFirebase = () => {
   const [photos, setPhotos] = useState(data);
   const [isCollapsed, setIsCollapsed] = useState(false);
-  const [input, setInput] = useState();
+  const [input, setInput] = useState({ title: null, file: null, path: null });
   const handleOnChange = (e) => {
     setInput(e.target.value);
+    if (e.target.name === 'file') {
+      setInput({
+        ...input,
+        file: e.target.files[0],
+        path: URL.createObjectURL(e.target.files[0]),
+      });
+    } else {
+      setInput({ ...input, title: e.target.value });
+    }
   };
   const handleOnSubmit = (e) => {
     e.preventDefault();
-    setPhotos([input, ...photos]);
+    setPhotos([input.path, ...photos]);
   };
 
   return (

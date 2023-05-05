@@ -1,9 +1,9 @@
-import { PhotoGalaryWithFirebase } from './components/PhotoGalaryWithFIrebase';
+import { PhotoGalleryProject } from './project/PhotoGalleryProject';
 
 function App() {
   return (
     <>
-      <PhotoGalaryWithFirebase />
+      <PhotoGalleryProject />
     </>
   );
 }

@@ -1,7 +1,7 @@
 import { useEffect, useReducer, useState } from 'react';
-import { CardList } from './CardList';
-import { Navbar } from './Navbar';
-import UploadForm from './UploadForm';
+import { CardList } from './components/CardList';
+import { Navbar } from './components/Navbar';
+import UploadForm from './components/UploadForm';
 
 const data = [
   'https://picsum.photos/id/1001/200/200',

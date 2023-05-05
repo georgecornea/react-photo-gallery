@@ -1,4 +1,10 @@
-const UploadForm = ({ inputs, isVisible, onChange, onSubmit }) => {
+import { useMemo } from 'react';
+
+const UploadForm = ({ input, isVisible, onChange, onSubmit }) => {
+  const isDisabled = useMemo(() => {
+    return !!Object.values(input).some((value) => !value);
+  }, [input]);
+
   return (
     isVisible && (
       <>
@@ -27,7 +33,11 @@ const UploadForm = ({ inputs, isVisible, onChange, onSubmit }) => {
                 onChange={onChange}
               />
             </div>
-            <button type='submit' className='btn btn-success float-end'>
+            <button
+              type='submit'
+              className='btn btn-success float-end'
+              disabled={isDisabled}
+            >
               Save changes
             </button>
           </form>

@@ -53,6 +53,7 @@ export const PhotoGalaryWithFirebase = () => {
         <div className='clearfix mb-4'></div>
         {isCollapsed && (
           <UploadForm
+            input={input}
             isVisible={isCollapsed}
             onChange={handleOnChange}
             onSubmit={handleOnSubmit}

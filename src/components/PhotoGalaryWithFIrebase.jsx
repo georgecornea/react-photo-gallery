@@ -34,6 +34,8 @@ export const PhotoGalaryWithFirebase = () => {
   const handleOnSubmit = (e) => {
     e.preventDefault();
     setPhotos([input.path, ...photos]);
+    setInput({ title: null, file: null, path: null });
+    setIsCollapsed(false);
   };
 
   useEffect(() => {

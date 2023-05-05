@@ -1,5 +1,21 @@
 import { useMemo } from 'react';
 
+const Preview = ({ path }) => {
+  return (
+    path && (
+      <div
+        className='rounded p-1 m-5'
+        style={{
+          width: '30%',
+          height: '200px',
+          backgroundImage: `url(${path}`,
+          backgroundSize: 'cover',
+        }}
+      ></div>
+    )
+  );
+};
+
 const UploadForm = ({ input, isVisible, onChange, onSubmit }) => {
   const isDisabled = useMemo(() => {
     return !!Object.values(input).some((value) => !value);
@@ -10,6 +26,7 @@ const UploadForm = ({ input, isVisible, onChange, onSubmit }) => {
       <>
         <p className='display-6 text-center mb-3'>Upload Photo</p>
         <div className='mb-5 d-flex align-items-center justify-content-center'>
+          <Preview {...input} />
           <form
             className='mb-2'
             style={{ textAlign: 'left' }}

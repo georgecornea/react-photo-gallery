@@ -3,6 +3,7 @@ import { CardList } from './components/CardList';
 import { Navbar } from './components/Navbar';
 import UploadForm from './components/UploadForm';
 import { Context } from './state/context';
+import firebase from './firebase/firebase.config.js';
 
 export const PhotoGallery = () => {
   //const value = useContext(Context);
@@ -20,6 +21,10 @@ export const PhotoGallery = () => {
   useEffect(() => {
     dispatcher({ type: 'countImages' });
   }, [state.photos]);
+
+  useEffect(() => {
+    firebase();
+  }, []);
 
   return (
     <>

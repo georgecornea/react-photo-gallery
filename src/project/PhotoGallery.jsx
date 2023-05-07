@@ -3,7 +3,9 @@ import { CardList } from './components/CardList';
 import { Navbar } from './components/Navbar';
 import UploadForm from './components/UploadForm';
 import { Context } from './state/context';
-import firebase from './firebase/firebase.config.js';
+import Firestore from './firebase/firestore.js';
+
+const { writeDoc } = Firestore;
 
 export const PhotoGallery = () => {
   //const value = useContext(Context);
@@ -14,6 +16,7 @@ export const PhotoGallery = () => {
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
+    writeDoc(state.input, 'photos').then(console.log);
     dispatcher({ type: 'addPhoto', payload: state.input });
     dispatcher({ type: 'setIsCollapsed', payload: { bool: false } });
   };
@@ -21,10 +24,6 @@ export const PhotoGallery = () => {
   useEffect(() => {
     dispatcher({ type: 'countImages' });
   }, [state.photos]);
-
-  useEffect(() => {
-    firebase();
-  }, []);
 
   return (
     <>

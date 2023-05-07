@@ -60,7 +60,7 @@ const reducer = (state, action) => {
 const Provider = ({ children }) => {
   const [state, dispatcher] = useReducer(reducer, initialState);
   const loadPhotos = async () => {
-    readDocs().then((data) => dispatcher({ type: 'addPhotos', payload: data }));
+    // readDocs().then((data) => dispatcher({ type: 'addPhotos', payload: data }));
     // const photos = await readDocs('photos');
     // dispatcher({ type: 'addPhotos', payload: { photos } });
   };

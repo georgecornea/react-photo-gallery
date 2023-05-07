@@ -5,6 +5,8 @@ import UploadForm from './components/UploadForm';
 import { Context } from './state/context';
 // import Firestore from './firebase/firestore.js';
 // const { writeDoc, readDocs } = Firestore;
+import Storage from './firebase/storage.js';
+const { uploadPhoto } = Storage;
 
 export const PhotoGallery = () => {
   //const value = useContext(Context);
@@ -14,16 +16,13 @@ export const PhotoGallery = () => {
   //   readDocs().then((data) => dispatcher({ type: 'addPhotos', payload: data }));
   // }, [state.photos]);
 
-  useEffect(() => {
-    loadPhotos();
-  });
-
   const handleOnChange = (e) =>
     dispatcher({ type: 'setInput', payload: { value: e } });
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
-    writeDoc(state.input, 'photos').then(console.log);
+
+    // writeDoc(state.input, 'photos').then(console.log);
     dispatcher({ type: 'addPhoto', payload: state.input });
     dispatcher({ type: 'setIsCollapsed', payload: { bool: false } });
   };

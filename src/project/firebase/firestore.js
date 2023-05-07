@@ -1,9 +1,33 @@
 import firebase, { db } from './firebase.config';
-import { getFirestore, serverTimestamp, setDoc, doc } from 'firebase/firestore';
+import {
+  getDocs,
+  serverTimestamp,
+  setDoc,
+  doc,
+  collection,
+} from 'firebase/firestore';
 
 // const db = getFirestore(firebase);
 
 const Firestore = {
+  readDocs: (...args) => {
+    // const [collectionName] = args; // if more collections available
+    let photos = [];
+    const ref = collection(db, 'photos');
+    return new Promise(async (resolve) => {
+      try {
+        const snapshots = await getDocs(ref);
+        snapshots.forEach((doc) => {
+          const d = { ...doc.data() };
+          photos.push(d);
+        });
+        resolve(photos);
+      } catch (e) {
+        console.log(e);
+      }
+    });
+  },
+
   writeDoc: (...args) => {
     const [input, collection] = args;
     return new Promise(async (resolve) => {

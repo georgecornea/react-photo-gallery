@@ -3,13 +3,20 @@ import { CardList } from './components/CardList';
 import { Navbar } from './components/Navbar';
 import UploadForm from './components/UploadForm';
 import { Context } from './state/context';
-import Firestore from './firebase/firestore.js';
-
-const { writeDoc } = Firestore;
+// import Firestore from './firebase/firestore.js';
+// const { writeDoc, readDocs } = Firestore;
 
 export const PhotoGallery = () => {
   //const value = useContext(Context);
-  const { dispatcher, state } = useContext(Context);
+  const { dispatcher, state, loadPhotos } = useContext(Context);
+
+  // useEffect(() => {
+  //   readDocs().then((data) => dispatcher({ type: 'addPhotos', payload: data }));
+  // }, [state.photos]);
+
+  useEffect(() => {
+    loadPhotos();
+  });
 
   const handleOnChange = (e) =>
     dispatcher({ type: 'setInput', payload: { value: e } });

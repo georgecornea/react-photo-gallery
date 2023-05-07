@@ -1,4 +1,6 @@
 import { createContext, useReducer } from 'react';
+import Firestore from '../firebase/firestore.js';
+const { readDocs } = Firestore;
 
 export const Context = createContext();
 
@@ -23,6 +25,11 @@ const handleOnChange = (state, e) => {
 
 const reducer = (state, action) => {
   switch (action.type) {
+    case 'addPhotos':
+      return {
+        ...state,
+        photos: action.payload,
+      };
     case 'addPhoto':
       return {
         ...state,
@@ -52,8 +59,13 @@ const reducer = (state, action) => {
 
 const Provider = ({ children }) => {
   const [state, dispatcher] = useReducer(reducer, initialState);
+  const loadPhotos = async () => {
+    readDocs().then((data) => dispatcher({ type: 'addPhotos', payload: data }));
+    // const photos = await readDocs('photos');
+    // dispatcher({ type: 'addPhotos', payload: { photos } });
+  };
   return (
-    <Context.Provider value={{ state, dispatcher }}>
+    <Context.Provider value={{ state, dispatcher, loadPhotos }}>
       {children}
     </Context.Provider>
   );
